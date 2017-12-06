@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    defaultConfig {
+        applicationId "com.github.tvmazesample"
+        buildConfigField 'String', 'BASE_URL', "\"$global_serverScheme://$global_serverAddress/\""
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:$global_supportVersion"
+    compile "com.android.support:design:$global_supportVersion"
+
+    // Lifecycle aware
+    compile "android.arch.lifecycle:extensions:$global_arcLifecycleVersion"
+    compile "android.arch.lifecycle:runtime:$global_arcLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$global_arcLifecycleVersion"
+    // Dagger
+    annotationProcessor "com.google.dagger:dagger-compiler:$global_daggerVersion"
+    compile "com.google.dagger:dagger:$global_daggerVersion"
+    provided 'javax.annotation:jsr250-api:1.0'
+    // Butter Knife
+    compile "com.jakewharton:butterknife:$global_butterknifeVersion"
+    provided "com.jakewharton:butterknife-compiler:$global_butterknifeVersion"
+    // RxAndroid
+    compile "io.reactivex.rxjava2:rxandroid:$global_rxandroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$global_rxjavaVersion"
+    // Retrofit
+    compile "com.squareup.retrofit2:retrofit:$global_retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$global_retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$global_retrofitVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$global_okHttpVersion"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$global_retrofit2rx2AdapterVersion"
+    // Picasso
+    compile "com.squareup.picasso:picasso:$global_picassoVersion"
+
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}

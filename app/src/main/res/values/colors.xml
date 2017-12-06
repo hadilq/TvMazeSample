@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#eff1f2f2</color>
+    <color name="light_background">#fefefe</color>
+    <color name="dark_background">#aa0b0b0b</color>
+
+    <color name="progress_bar">#7386f5</color>
+    <color name="refresh">#2f3139</color>
+    <color name="color_clicked">#dcdcdc</color>
+
+    <color name="text">#110720</color>
+    <color name="text_hint">#777778</color>
+    <color name="text_error">#FF0000</color>
+    <color name="text_notify">#60bf71</color>
+
+
+</resources>

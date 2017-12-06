@@ -1,0 +1,71 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.google.com' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+    // The most recent interface number that the library implements.
+    def appCurrent = 0
+    // The implementation number of the current interface.
+    def appRevision = 0
+    // The difference between the newest and oldest interfaces that the library implements.
+    def appAge = 1
+
+    ext.global_compileSdkVersion = 26
+    ext.global_buildToolsVersion = "26.0.1"
+
+    ext.global_minSdkVersion = 17
+    ext.global_targetSdkVersion = 26
+    ext.global_versionCode = appCurrent * 100 + appRevision * 10 + appAge
+    ext.global_versionName = "$appCurrent.$appRevision.$appAge"
+
+    ext.global_arcLifecycleVersion = "1.0.0"
+    ext.global_supportVersion = "26.1.0"
+    ext.global_junitVersion = "4.12"
+
+    ext.global_daggerVersion = "2.8"
+    ext.global_butterknifeVersion = "8.8.1"
+    ext.global_rxandroidVersion = "2.0.1"
+    ext.global_rxjavaVersion = "2.1.7"
+    ext.global_retrofitVersion = "2.3.0"
+    ext.global_retrofit2rx2AdapterVersion = "1.0.0"
+    ext.global_okHttpVersion = "3.9.1"
+    ext.global_picassoVersion = "2.5.2"
+
+    ext.global_serverAddress = "api.tvmaze.com"
+    ext.global_serverScheme = "http"
+
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion global_compileSdkVersion
+                buildToolsVersion global_buildToolsVersion
+
+                defaultConfig {
+                    minSdkVersion global_minSdkVersion
+                    targetSdkVersion global_targetSdkVersion
+                    versionCode global_versionCode
+                    versionName global_versionName
+                    vectorDrawables.useSupportLibrary = true
+                }
+            }
+        }
+    }
+}

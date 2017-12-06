@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_small">12sp</dimen>
+    <dimen name="font_size_normal">18sp</dimen>
+    <dimen name="font_size_medium">20sp</dimen>
+    <dimen name="font_size_big">23sp</dimen>
+
+    <dimen name="try_again_height">100dp</dimen>
+    <dimen name="progress_bar_size">35dp</dimen>
+    <dimen name="min_span_width">150dp</dimen>
+
+</resources>
