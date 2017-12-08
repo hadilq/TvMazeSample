@@ -3,7 +3,9 @@ package com.github.tvmazesample.ui.activity;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +52,6 @@ public class MainActivity extends BaseContentActivity implements FragmentManager
     View mScrim;
 
     private AppBarLayout.LayoutParams mAppBarLP;
-    private CollapsingToolbarLayout.LayoutParams mCollapsingLP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,9 @@ public class MainActivity extends BaseContentActivity implements FragmentManager
                 onBackPressed();
             }
         });
-        mCollapsingToolbarLayout.setTitleEnabled(true);
+        mCollapsingToolbarLayout.setTitleEnabled(false);
 
         mAppBarLP = (AppBarLayout.LayoutParams) mCollapsingToolbarLayout.getLayoutParams();
-        mCollapsingLP = (CollapsingToolbarLayout.LayoutParams) mToolbar.getLayoutParams();
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
@@ -116,7 +118,7 @@ public class MainActivity extends BaseContentActivity implements FragmentManager
 
             CoordinatorLayout.LayoutParams alp = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
             if (fragment.hasHomeAsUp()) {
-                mCollapsingToolbarLayout.setTitle(title);
+                mToolbar.setTitle(title);
                 mAppBarLayout.setExpanded(true, true);
 
                 Drawable parallaxDrawable = fragment.getCollapsingParallaxDrawable();
@@ -133,26 +135,20 @@ public class MainActivity extends BaseContentActivity implements FragmentManager
                     }
                 }
 
-                alp.height = getResources().getDimensionPixelSize(R.dimen.appbar_header_height_expanded);
+                alp.height = Math.min((int) (mUiUtil.getScreenHeight() * .65),
+                        getResources().getDimensionPixelSize(R.dimen.appbar_header_height_expanded));
                 mAppBarLP.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
-                        AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED |
-                        AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
-                mCollapsingLP.setCollapseMode(CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN);
-
-                mAppBarLayout.removeView(mToolbar);
-                mAppBarLayout.removeView(mCollapsingToolbarLayout);
-                mCollapsingToolbarLayout.removeView(mToolbar);
-                mCollapsingToolbarLayout.addView(mToolbar, mCollapsingLP);
-                mAppBarLayout.addView(mCollapsingToolbarLayout, mAppBarLP);
-
-                mAppBarLayout.invalidate();
+                        AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
 
                 //noinspection ConstantConditions
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+                setupStatusBar(R.color.transparent);
             } else {
+                mToolbar.setTitle(title);
                 mAppBarLayout.setExpanded(false, false);
 
                 mHeaderView.setVisibility(GONE);
@@ -161,24 +157,28 @@ public class MainActivity extends BaseContentActivity implements FragmentManager
                 mFab.setVisibility(GONE);
 
                 alp.height = getResources().getDimensionPixelSize(R.dimen.appbar_header_height_collapsed);
-                mAppBarLP.setScrollFlags(0);
-
-                mAppBarLayout.removeView(mToolbar);
-                mAppBarLayout.removeView(mCollapsingToolbarLayout);
-                mCollapsingToolbarLayout.removeView(mToolbar);
-                mAppBarLayout.addView(mToolbar, mAppBarLP);
-
-                mAppBarLayout.invalidate();
+                mAppBarLP.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
 
                 //noinspection ConstantConditions
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setDisplayShowHomeEnabled(false);
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 getSupportActionBar().setTitle(title);
+
+                setupStatusBar(R.color.colorPrimaryDark);
             }
 
             mAppBarLayout.setLayoutParams(alp);
+        }
+    }
+
+    private void setupStatusBar(@ColorRes int dynamicColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(dynamicColor));
         }
     }
 

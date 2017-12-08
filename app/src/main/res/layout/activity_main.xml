@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
-            android:layout_height="@dimen/appbar_header_height_collapsed"
+            android:layout_height="@dimen/appbar_header_height_expanded"
             android:layout_width="match_parent"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -19,6 +19,8 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:background="@color/colorPrimaryDark"
+                app:titleEnabled="false"
+
                 app:contentScrim="?attr/colorPrimaryDark">
 
             <com.github.tvmazesample.ui.view.TopCropImageView
@@ -49,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimaryDark"
+                    app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
