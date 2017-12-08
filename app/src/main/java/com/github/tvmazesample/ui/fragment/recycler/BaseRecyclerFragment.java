@@ -158,7 +158,7 @@ public abstract class BaseRecyclerFragment extends BaseContentFragment {
     }
 
     private void checkIfReadyToProvide() {
-        if (mLoading) {
+        if (mLoading || mEndOfList) {
             return;
         }
         int totalItemCount = mLayoutManager.getItemCount();
@@ -178,13 +178,16 @@ public abstract class BaseRecyclerFragment extends BaseContentFragment {
         mRecyclerView.setVisibility(View.VISIBLE);
 
         final List<BaseRecyclerData> list = mAdapter.getList();
-        int startSize = list.size();
         if (!list.isEmpty() && list.get(list.size() - 1).getViewType() == TryAgainData.VIEW_TYPE) {
             list.remove(list.size() - 1);
+            mAdapter.notifyItemRemoved(list.size());
         }
+        int startSize = list.size();
 
         list.addAll(tailList);
-        mAdapter.notifyItemRangeInserted(startSize, list.size() - 1);
+        if (startSize < list.size()) {
+            mAdapter.notifyItemRangeInserted(startSize, list.size() - 1);
+        }
 
         onNotifyToContinue();
     }
@@ -214,8 +217,14 @@ public abstract class BaseRecyclerFragment extends BaseContentFragment {
 
     private void onNotifyToContinue() {
         if (!mEndOfList) {
-            mAdapter.getList().add(new TryAgainData(true));
+            mAdapter.getList().add(new TryAgainData(true, getMaxSpanCount()));
             mAdapter.notifyItemInserted(mAdapter.getList().size() - 1);
+        } else {
+            ArrayList<BaseRecyclerData> list = mAdapter.getList();
+            if (!list.isEmpty() && list.get(list.size() - 1).getViewType() == TryAgainData.VIEW_TYPE) {
+                list.remove(list.size() - 1);
+                mAdapter.notifyItemRemoved(list.size());
+            }
         }
 
         if (!mAdapter.isEmpty()) {

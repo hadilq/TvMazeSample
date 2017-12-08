@@ -41,9 +41,22 @@ dependencies {
     // Picasso
     compile "com.squareup.picasso:picasso:$global_picassoVersion"
 
-
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    // **** Android Unit Test ****
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$global_espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestCompile "com.android.support:support-annotations:$global_supportVersion"
+    androidTestCompile "com.android.support.test:runner:$global_supportTestVersion"
+    androidTestCompile "com.android.support.test:rules:$global_supportTestVersion"
+    // Mockito
+    androidTestCompile "org.mockito:mockito-core:$global_mockitoCoreVersion"
+    androidTestCompile "org.mockito:mockito-android:$global_mockitoAndroidVersion"
+    // Dagger
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$global_daggerVersion"
+    androidTestCompile "com.google.dagger:dagger:$global_daggerVersion"
+    androidTestProvided 'javax.annotation:jsr250-api:1.0'
+
+    // **** Unit Test ****
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:$global_mockitoCoreVersion"
 }

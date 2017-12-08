@@ -26,12 +26,6 @@ public class NetServiceModule {
     private static final long READ_TIMEOUT_SECOND = 30;
 
     @Provides
-    @Singleton
-    ShowsService provideShowsService(Retrofit retrofit) {
-        return retrofit.create(ShowsService.class);
-    }
-
-    @Provides
     OkHttpClient.Builder provideOkHttpClientBuilder() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

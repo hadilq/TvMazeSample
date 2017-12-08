@@ -24,7 +24,7 @@ public class UiUtil {
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         mScreenHeight = displayMetrics.heightPixels;
         mScreenWidth = displayMetrics.widthPixels;
-        mScreenMaxSpannable = mScreenWidth / activity.getResources().getDimensionPixelOffset(R.dimen.min_span_width);
+        mScreenMaxSpannable = mScreenWidth / activity.getResources().getDimensionPixelOffset(R.dimen.min_span);
     }
 
     public int getScreenHeight() {
@@ -48,7 +48,7 @@ public class UiUtil {
 
     private double goldenRatio(double a, double b) {
         double epsilon = 0.00001;
-        if(Math.abs((b / a) - ((a + b) / b)) < epsilon) {
+        if (Math.abs((b / a) - ((a + b) / b)) < epsilon) {
             return ((a + b) / b);
         } else {
             return goldenRatio(b, a + b);

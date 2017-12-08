@@ -7,6 +7,25 @@
 
     <dimen name="try_again_height">100dp</dimen>
     <dimen name="progress_bar_size">35dp</dimen>
-    <dimen name="min_span_width">150dp</dimen>
+    <dimen name="min_span">150dp</dimen>
+    <dimen name="activity_margin_content">20dp</dimen>
+    <dimen name="appbar_header_height_expanded">400dp</dimen>
+    <dimen name="appbar_header_height_collapsed">86dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+
+    <dimen name="horizontal_margin_eighth">4dp</dimen>
+    <dimen name="horizontal_margin_quarter">8dp</dimen>
+    <dimen name="horizontal_margin_half">16dp</dimen>
+    <dimen name="horizontal_margin">32dp</dimen>
+    <dimen name="horizontal_margin_double">64dp</dimen>
+
+    <dimen name="vertical_margin_eighth">4dp</dimen>
+    <dimen name="vertical_margin_quarter">8dp</dimen>
+    <dimen name="vertical_margin_half">16dp</dimen>
+    <dimen name="vertical_margin">32dp</dimen>
+    <dimen name="vertical_margin_double">64dp</dimen>
+    <dimen name="vertical_margin_triple">128dp</dimen>
+    <dimen name="vertical_margin_quadruple">256dp</dimen>
+
 
 </resources>

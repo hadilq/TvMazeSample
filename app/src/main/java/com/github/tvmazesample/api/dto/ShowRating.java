@@ -6,8 +6,15 @@ import android.os.Parcelable;
 public class ShowRating implements Parcelable {
     private float average;
 
+    public ShowRating() {
+    }
+
     public float getAverage() {
         return average;
+    }
+
+    void setAverage(float average) {
+        this.average = average;
     }
 
     @Override
@@ -18,9 +25,6 @@ public class ShowRating implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeFloat(this.average);
-    }
-
-    public ShowRating() {
     }
 
     protected ShowRating(Parcel in) {

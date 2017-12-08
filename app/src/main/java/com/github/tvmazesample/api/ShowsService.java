@@ -1,8 +1,8 @@
 package com.github.tvmazesample.api;
 
-import com.github.tvmazesample.api.dto.ShowDetailsDto;
 import com.github.tvmazesample.api.dto.ShowDto;
-import com.github.tvmazesample.api.dto.ShowSeasonsDto;
+import com.github.tvmazesample.api.dto.ShowEpisodeDto;
+import com.github.tvmazesample.api.dto.ShowSeasonDto;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,9 +15,9 @@ public interface ShowsService {
     @GET("shows")
     Observable<List<ShowDto>> loadShows(@Query("page") int page);
 
-    @GET("shows/{id}")
-    Observable<ShowDetailsDto> loadShowDetail(@Path("id") long id);
-
     @GET("shows/{id}/seasons")
-    Observable<ShowSeasonsDto> loadSeasons(@Path("id") long id);
+    Observable<List<ShowSeasonDto>> loadSeasons(@Path("id") long id);
+
+    @GET("shows/{id}/episodes")
+    Observable<List<ShowEpisodeDto>> loadEpisodes(@Path("id") long id);
 }

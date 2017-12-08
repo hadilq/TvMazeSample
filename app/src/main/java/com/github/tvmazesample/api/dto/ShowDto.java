@@ -95,6 +95,74 @@ public class ShowDto implements Parcelable {
         return genres;
     }
 
+    void setId(int id) {
+        this.id = id;
+    }
+
+    void setUrl(String url) {
+        this.url = url;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    void setType(String type) {
+        this.type = type;
+    }
+
+    void setLanguage(String language) {
+        this.language = language;
+    }
+
+    void setStatus(String status) {
+        this.status = status;
+    }
+
+    void setOfficialSite(String officialSite) {
+        this.officialSite = officialSite;
+    }
+
+    void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    void setRating(ShowRating rating) {
+        this.rating = rating;
+    }
+
+    void setCountry(ShowCountry country) {
+        this.country = country;
+    }
+
+    void setImage(ShowImage image) {
+        this.image = image;
+    }
+
+    void set_links(LinkDto _links) {
+        this._links = _links;
+    }
+
+    void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    void setPremiered(Date premiered) {
+        this.premiered = premiered;
+    }
+
+    void setUpdated(long updated) {
+        this.updated = updated;
+    }
+
+    void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
     @Override
     public int describeContents() {
         return 0;

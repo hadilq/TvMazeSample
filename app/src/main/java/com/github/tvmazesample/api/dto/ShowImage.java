@@ -15,6 +15,14 @@ public class ShowImage implements Parcelable{
         return original;
     }
 
+    void setMedium(String medium) {
+        this.medium = medium;
+    }
+
+    void setOriginal(String original) {
+        this.original = original;
+    }
+
     @Override
     public int describeContents() {
         return 0;

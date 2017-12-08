@@ -7,8 +7,30 @@
         android:foreground="@drawable/selectable_item_background">
 
     <RelativeLayout
+            android:id="@+id/image_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+        <View
+                android:id="@+id/center"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:background="@color/transparent"/>
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/center"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:layout_marginEnd="@dimen/horizontal_margin"
+                android:gravity="center"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:textColor="@color/text"
+                android:textSize="@dimen/font_size_small"/>
 
         <ImageView
                 android:id="@+id/medium_image"
@@ -16,11 +38,10 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"/>
 
-        <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="@dimen/progress_bar_size"
-                android:layout_height="@dimen/progress_bar_size"
-                style="?android:attr/progressBarStyleLarge"
+        <com.github.tvmazesample.ui.view.TryAgainView
+                android:id="@+id/try_again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"/>
     </RelativeLayout>
 </FrameLayout>

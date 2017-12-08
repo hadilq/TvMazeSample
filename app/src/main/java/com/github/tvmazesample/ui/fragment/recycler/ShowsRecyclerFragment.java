@@ -12,23 +12,31 @@ import android.widget.TextView;
 import com.github.tvmazesample.R;
 import com.github.tvmazesample.api.dto.ShowDto;
 import com.github.tvmazesample.di.Injector;
+import com.github.tvmazesample.ui.fragment.BaseContentFragment;
 import com.github.tvmazesample.ui.fragment.BundleKey;
 import com.github.tvmazesample.ui.fragment.recycler.data.BaseRecyclerData;
 import com.github.tvmazesample.ui.fragment.recycler.data.ShowData;
 import com.github.tvmazesample.ui.fragment.recycler.holder.BaseViewHolder;
 import com.github.tvmazesample.ui.fragment.recycler.holder.ShowViewHolder;
 import com.github.tvmazesample.util.L;
+import com.github.tvmazesample.util.NavigationUtil;
 import com.github.tvmazesample.viewmodel.ShowsViewModel;
 import com.github.tvmazesample.viewmodel.response.Response;
 import com.github.tvmazesample.viewmodel.response.Status;
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
+import javax.inject.Inject;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowsRecyclerFragment extends BaseRecyclerFragment {
+
+    public static final String OPEN_DETAILS_PROGRESS_TAG = "OPEN_DETAILS_PROGRESS_TAG";
+
+    @Inject
+    NavigationUtil mNavigationUtil;
 
     private ShowsViewModel mViewModel;
 
@@ -65,12 +73,24 @@ public class ShowsRecyclerFragment extends BaseRecyclerFragment {
         return view;
     }
 
-    @NonNull
-    private Consumer<ShowData> getClickOnAShowObserver() {
-        return new Consumer<ShowData>() {
-            @Override
-            public void accept(ShowData showData) throws Exception {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
 
+    @NonNull
+    private Consumer<ShowViewHolder> getClickOnAShowObserver() {
+        return new Consumer<ShowViewHolder>() {
+            @Override
+            public void accept(final ShowViewHolder showViewHolder) throws Exception {
+                ShowData showData = showViewHolder.getData();
+                mNavigationUtil.startContentFragment(
+                        getFragmentManager(),
+                        ShowDetailsRecyclerFragment.instantiate(
+                                showData.getShowDto(),
+                                showViewHolder.getMediumView().getDrawable().getConstantState().newDrawable()
+                        )
+                );
             }
         };
     }
@@ -83,6 +103,11 @@ public class ShowsRecyclerFragment extends BaseRecyclerFragment {
     @Override
     protected int getMaxSpanCount() {
         return mUiUtil.getScreenMaxSpannable();
+    }
+
+    @Override
+    public BackState onBackPressed() {
+        return BackState.CLOSE_APP;
     }
 
     @Nullable

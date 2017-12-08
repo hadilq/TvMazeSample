@@ -49,6 +49,11 @@ subprojects {
     ext.global_okHttpVersion = "3.9.1"
     ext.global_picassoVersion = "2.5.2"
 
+    ext.global_supportTestVersion = '1.0.0'
+    ext.global_espressoVersion = '3.0.1'
+    ext.global_mockitoCoreVersion = '1.10.19'
+    ext.global_mockitoAndroidVersion = '2.13.0'
+
     ext.global_serverAddress = "api.tvmaze.com"
     ext.global_serverScheme = "http"
 

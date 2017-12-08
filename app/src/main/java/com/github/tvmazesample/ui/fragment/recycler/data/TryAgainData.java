@@ -12,12 +12,12 @@ public class TryAgainData extends BaseRecyclerData {
     public static final int VIEW_TYPE = R.layout.try_again;
 
     private boolean mStart;
+    private int mSpan;
     private String mErrorMessage;
 
-    public TryAgainData(
-            boolean s
-    ) {
-        this.mStart = s;
+    public TryAgainData(boolean start, int span) {
+        this.mStart = start;
+        this.mSpan = span;
     }
 
     public void setErrorMessage(String mErrorMessage) {
@@ -39,7 +39,7 @@ public class TryAgainData extends BaseRecyclerData {
 
     @Override
     public int getSpan() {
-        return MAX_SPAN;
+        return mSpan;
     }
 
     @Override

@@ -11,6 +11,8 @@ import dagger.Provides;
 
 import javax.inject.Singleton;
 
+import static junit.framework.Assert.assertNotNull;
+
 /**
  * @author hadi
  */
@@ -38,6 +40,7 @@ public class AppModule {
     @Provides
     @Singleton
     Context providesContext() {
+        assertNotNull(mApplication);
         return mApplication;
     }
 
