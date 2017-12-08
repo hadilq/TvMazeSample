@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.github.tvmazesample.R;
 import com.github.tvmazesample.api.dto.ShowDto;
@@ -191,9 +192,12 @@ public class ShowDetailsRecyclerFragment extends BaseRecyclerFragment {
         FragmentActivity activity = getActivity();
 
         if (activity instanceof MainActivity) {
-            Picasso.with(getContext())
-                    .load(show.getImage().getOriginal())
-                    .into(((MainActivity) activity).getHeaderView());
+            ImageView headerView = ((MainActivity) activity).getHeaderView();
+            if (headerView != null) {
+                Picasso.with(getContext())
+                        .load(show.getImage().getOriginal())
+                        .into(headerView);
+            }
 
         } else {
             Assert.fail();

@@ -2,6 +2,7 @@ package com.github.tvmazesample.ui.fragment.recycler;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.github.tvmazesample.R;
 import com.github.tvmazesample.api.dto.ShowDto;
 import com.github.tvmazesample.di.Injector;
-import com.github.tvmazesample.ui.fragment.BaseContentFragment;
 import com.github.tvmazesample.ui.fragment.BundleKey;
 import com.github.tvmazesample.ui.fragment.recycler.data.BaseRecyclerData;
 import com.github.tvmazesample.ui.fragment.recycler.data.ShowData;
@@ -84,13 +84,16 @@ public class ShowsRecyclerFragment extends BaseRecyclerFragment {
             @Override
             public void accept(final ShowViewHolder showViewHolder) throws Exception {
                 ShowData showData = showViewHolder.getData();
-                mNavigationUtil.startContentFragment(
-                        getFragmentManager(),
-                        ShowDetailsRecyclerFragment.instantiate(
-                                showData.getShowDto(),
-                                showViewHolder.getMediumView().getDrawable().getConstantState().newDrawable()
-                        )
-                );
+                Drawable drawable = showViewHolder.getMediumView().getDrawable();
+                if (drawable != null) {
+                    mNavigationUtil.startContentFragment(
+                            getFragmentManager(),
+                            ShowDetailsRecyclerFragment.instantiate(
+                                    showData.getShowDto(),
+                                    drawable.getConstantState().newDrawable()
+                            )
+                    );
+                }
             }
         };
     }
