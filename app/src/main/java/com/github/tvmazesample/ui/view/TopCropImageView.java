@@ -48,8 +48,13 @@ public class TopCropImageView extends AppCompatImageView {
 
         final Matrix matrix = getImageMatrix();
 
-        float scaleFactor = getWidth() / (float) drawable.getIntrinsicWidth();
-        matrix.setScale(scaleFactor, scaleFactor, 0, drawable.getIntrinsicHeight() / 4);
+        if (drawable.getIntrinsicWidth() <= drawable.getIntrinsicHeight()) {
+            float scaleFactor = getWidth() / (float) drawable.getIntrinsicWidth();
+            matrix.setScale(scaleFactor, scaleFactor, 0, drawable.getIntrinsicHeight() / scaleFactor);
+        } else {
+            float scaleFactor = getHeight() / (float) drawable.getIntrinsicHeight();
+            matrix.setScale(scaleFactor, scaleFactor, drawable.getIntrinsicWidth() / scaleFactor, 0);
+        }
         setImageMatrix(matrix);
     }
 }
